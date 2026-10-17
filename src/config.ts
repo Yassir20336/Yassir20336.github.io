@@ -3,6 +3,14 @@ export const siteConfig = {
   title: "Senior Odoo Developer",
   description: "Senior Odoo Developer specializing in scalable ERP solutions, Python development, Odoo customization, REST APIs, and business process automation.",
   accentColor: "#2563EB",
+  location: "Jeddah, Saudi Arabia",
+  // Optional badge above your name, e.g. "Open to new opportunities". Leave empty to hide it.
+  availability: "",
+  stats: [
+    { value: "6+", label: "Years with Odoo" },
+    { value: "v8–v19", label: "Odoo versions" },
+    { value: "3", label: "Countries served" },
+  ],
   social: {
     email: "yassir_samad@yahoo.com",
     linkedin: "https://linkedin.com/in/yassir203",
@@ -20,7 +28,7 @@ I enjoy building scalable, maintainable, and high-performance business applicati
 `,
 skills: [
     "Python",
-    "Odoo From v8 To v19",
+    "Odoo (v8 – v19)",
     "PostgreSQL",
     "XML",
     "OWL",
@@ -43,7 +51,6 @@ skills: [
     name: "Retail ERP Solutions",
     description:
       "Developed and customized complete Odoo ERP solutions for multiple fashion and retail brands, including Sales, Inventory, Purchase, POS, Accounting, and CRM modules with custom workflows and reports.",
-    link: "#",
     skills: [
       "Odoo",
       "Python",
@@ -57,7 +64,6 @@ skills: [
     name: "Construction ERP",
     description:
       "Implemented end-to-end ERP solutions for construction companies including project management, procurement, accounting, HR, payroll, and document management systems.",
-    link: "#",
     skills: [
       "Odoo",
       "Python",
@@ -70,7 +76,6 @@ skills: [
     name: "Healthcare ERP",
     description:
       "Designed and implemented healthcare ERP solutions covering patient management, appointments, billing, pharmacy workflows, and electronic document management.",
-    link: "#",
     skills: [
       "Odoo",
       "Python",
@@ -83,7 +88,6 @@ skills: [
     name: "Government ERP Projects",
     description:
       "Delivered ERP implementations for government organizations, focusing on workflow automation, business process optimization, and digital transformation.",
-    link: "#",
     skills: [
       "Odoo",
       "Business Analysis",
@@ -95,7 +99,6 @@ skills: [
     name: "Odoo API Integrations",
     description:
       "Integrated Odoo with external systems including shipping providers, payment gateways, and custom REST APIs to automate business operations.",
-    link: "#",
     skills: [
       "REST API",
       "Python",
@@ -109,7 +112,6 @@ skills: [
     name: "Odoo Version Migration",
     description:
       "Successfully migrated enterprise Odoo solutions from version 14 to version 16 while maintaining custom modules and improving performance.",
-    link: "#",
     skills: [
       "Odoo 14",
       "Odoo 16",
@@ -146,6 +148,16 @@ skills: [
   },
 
   {
+    title: "Odoo Developer (Remote)",
+    company: "White Code Information Technology",
+    dateRange: "May 2022 – Jul 2022",
+    bullets: [
+      "Customized Odoo modules for contracting companies.",
+      "Implemented new ERP features and maintained existing solutions."
+    ]
+  },
+
+  {
     title: "Senior Odoo Techno-Functional Consultant",
     company: "AlmedTech Advance Business",
     dateRange: "Jul 2019 – Jan 2023",
@@ -155,17 +167,8 @@ skills: [
       "Designed automated workflows and optimized business processes.",
       "Provided client training and post-implementation support."
     ]
-  },
-
-  {
-    title: "Odoo Developer (Remote)",
-    company: "White Code Information Technology",
-    dateRange: "May 2022 – Jul 2022",
-    bullets: [
-      "Customized Odoo modules for contracting companies.",
-      "Implemented new ERP features and maintained existing solutions."
-    ]
   }
+
 ],
   education: [
   {
@@ -199,7 +202,4 @@ skills: [
   ],
 },
   ],
-
-
-
 };

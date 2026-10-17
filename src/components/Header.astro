@@ -1,78 +1,124 @@
 ---
 import { siteConfig } from "../config";
+import Icon from "./Icon.astro";
 
-const hasProjects = siteConfig.projects && siteConfig.projects.length > 0;
-const hasExperience = siteConfig.experience && siteConfig.experience.length > 0;
-const hasEducation = siteConfig.education && siteConfig.education.length > 0;
+const links = [
+  { href: "#about", label: "About" },
+  siteConfig.projects?.length && { href: "#projects", label: "Projects" },
+  siteConfig.experience?.length && { href: "#experience", label: "Experience" },
+  siteConfig.education?.length && { href: "#education", label: "Education" },
+  { href: "#contact", label: "Contact" },
+].filter(Boolean) as { href: string; label: string }[];
+
+const initials = siteConfig.name
+  .split(" ")
+  .filter((w) => /^[A-Z]/.test(w))
+  .map((w) => w[0])
+  .slice(0, 2)
+  .join("");
 ---
 
 <header
   id="header"
-  class="fixed top-0 left-0 right-0 z-50 hidden md:block transition-all duration-300"
+  class="fixed inset-x-0 top-0 z-50 border-b border-transparent transition-colors duration-300"
 >
-  <nav class="max-w-7xl mx-auto px-8 py-4">
-    <ul class="flex items-center gap-8 justify-center">
-      <li>
-        <a
-          href="#about"
-          class="text-gray-700 hover:text-black transition-colors font-medium"
-        >
-          About
-        </a>
-      </li>
-      {
-        hasProjects && (
+  <nav class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8" aria-label="Main">
+    <a href="#top" class="flex items-center gap-2 font-semibold text-slate-900 dark:text-white">
+      <span class="grid h-9 w-9 place-items-center rounded-lg bg-accent font-mono text-sm text-white">{initials}</span>
+      <span class="hidden sm:inline">{siteConfig.name}</span>
+    </a>
+
+    <div class="flex items-center gap-1">
+      <ul class="hidden items-center gap-1 md:flex">
+        {links.map((l) => (
           <li>
-            <a
-              href="#projects"
-              class="text-gray-700 hover:text-black transition-colors font-medium"
-            >
-              Projects
+            <a href={l.href} class="nav-link rounded-lg px-3 py-2 text-sm font-medium text-slate-600 transition hover:text-slate-900 dark:text-slate-400 dark:hover:text-white">
+              {l.label}
             </a>
           </li>
-        )
-      }
-      {
-        hasExperience && (
-          <li>
-            <a
-              href="#experience"
-              class="text-gray-700 hover:text-black transition-colors font-medium"
-            >
-              Experience
-            </a>
-          </li>
-        )
-      }
-      {
-        hasEducation && (
-          <li>
-            <a
-              href="#education"
-              class="text-gray-700 hover:text-black transition-colors font-medium"
-            >
-              Education
-            </a>
-          </li>
-        )
-      }
-    </ul>
+        ))}
+      </ul>
+
+      <button
+        id="theme-toggle"
+        type="button"
+        class="grid h-10 w-10 place-items-center rounded-lg text-slate-600 transition hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-800"
+        aria-label="Toggle dark mode"
+      >
+        <Icon name="moon" class="h-5 w-5 dark:hidden" />
+        <Icon name="sun" class="hidden h-5 w-5 dark:block" />
+      </button>
+
+      <button
+        id="menu-toggle"
+        type="button"
+        class="grid h-10 w-10 place-items-center rounded-lg text-slate-600 transition hover:bg-slate-100 md:hidden dark:text-slate-400 dark:hover:bg-slate-800"
+        aria-label="Open menu"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+      >
+        <Icon name="menu" class="menu-open h-6 w-6" />
+        <Icon name="close" class="menu-close hidden h-6 w-6" />
+      </button>
+    </div>
   </nav>
+
+  <div id="mobile-menu" class="hidden border-t border-slate-200 bg-white/95 backdrop-blur md:hidden dark:border-slate-800 dark:bg-slate-950/95">
+    <ul class="mx-auto max-w-6xl px-4 py-3 sm:px-6">
+      {links.map((l) => (
+        <li>
+          <a href={l.href} class="block rounded-lg px-3 py-3 text-base font-medium text-slate-700 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800">
+            {l.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
 </header>
 
 <script>
-  window.addEventListener("scroll", () => {
-    const header = document.getElementById("header");
-    if (window.scrollY > 100) {
-      header?.classList.add("bg-white/80", "backdrop-blur-sm");
-    } else {
-      header?.classList.remove("bg-white/80", "backdrop-blur-sm");
-    }
-  });
-</script>
+  const header = document.getElementById("header")!;
+  const menu = document.getElementById("mobile-menu")!;
+  const menuBtn = document.getElementById("menu-toggle")!;
+  const scrolledClasses = ["bg-white/80", "dark:bg-slate-950/80", "backdrop-blur-md", "border-slate-200", "dark:border-slate-800"];
 
-<style>
-  html {
-    scroll-behavior: smooth;
-  }
-</style>
+  const onScroll = () => {
+    const scrolled = window.scrollY > 16;
+    scrolledClasses.forEach((c) => header.classList.toggle(c, scrolled));
+    header.classList.toggle("border-transparent", !scrolled);
+  };
+  window.addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
+
+  const setMenu = (open: boolean) => {
+    menu.classList.toggle("hidden", !open);
+    menuBtn.setAttribute("aria-expanded", String(open));
+    menuBtn.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+    menuBtn.querySelector(".menu-open")!.classList.toggle("hidden", open);
+    menuBtn.querySelector(".menu-close")!.classList.toggle("hidden", !open);
+  };
+  menuBtn.addEventListener("click", () => setMenu(menu.classList.contains("hidden")));
+  menu.querySelectorAll("a").forEach((a) => a.addEventListener("click", () => setMenu(false)));
+
+  document.getElementById("theme-toggle")!.addEventListener("click", () => {
+    const dark = document.documentElement.classList.toggle("dark");
+    try { localStorage.setItem("theme", dark ? "dark" : "light"); } catch {}
+  });
+
+  // Highlight the nav link for the section in view
+  const navLinks = document.querySelectorAll<HTMLAnchorElement>(".nav-link");
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((e) => {
+        if (!e.isIntersecting) return;
+        navLinks.forEach((l) => {
+          const active = l.getAttribute("href") === `#${e.target.id}`;
+          l.classList.toggle("text-accent", active);
+          l.classList.toggle("dark:text-blue-400", active);
+        });
+      });
+    },
+    { rootMargin: "-45% 0px -50% 0px" },
+  );
+  document.querySelectorAll("section[id]").forEach((s) => observer.observe(s));
+</script>
