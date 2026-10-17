@@ -111,10 +111,10 @@ skills: [
   {
     name: "Odoo Version Migration",
     description:
-      "Successfully migrated enterprise Odoo solutions from version 14 to version 16 while maintaining custom modules and improving performance.",
+      "Successfully migrated enterprise Odoo solutions from version 14 to 16 and from version 15 to 19, upgrading custom modules and data while improving performance.",
     skills: [
-      "Odoo 14",
-      "Odoo 16",
+      "Odoo 14 → 16",
+      "Odoo 15 → 19",
       "Python",
       "PostgreSQL",
       "Migration",
